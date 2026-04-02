@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="wP8yqDcChnXy_dJc7Fc3" name="Page-1">
-        <mxGraphModel dx="1083" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1066" dy="547" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -55,8 +55,8 @@
                 <mxCell id="30" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.markup.line;strokeColor=#999999;" vertex="1" parent="1">
                     <mxGeometry x="105" y="540" width="130" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="31" value="&lt;b&gt;Object type&lt;/b&gt;: CSV files&lt;div&gt;&lt;b&gt;Interface&lt;/b&gt;: Files in Folders&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;" vertex="1" parent="1">
-                    <mxGeometry x="90" y="560" width="150" height="60" as="geometry"/>
+                <mxCell id="31" value="&lt;b&gt;Object type&lt;/b&gt;: CSV files&lt;div&gt;&lt;font color=&quot;#ffffff&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;div&gt;&lt;b&gt;Interface&lt;/b&gt;: Files in Folders&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="90" y="570" width="150" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="32" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Folder_Blank.svg;" vertex="1" parent="1">
                     <mxGeometry x="137.82" y="440" width="49.29" height="40" as="geometry"/>
