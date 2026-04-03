@@ -13,29 +13,20 @@ WARNING:
     and ensure you have proper backups before running this script.
 */
 
--- USE master;
--- GO
+--  You could run it by psql -U <user> -f init_database.sql
 
 -- Drop and recreate the 'DataWarehouse' database PSQL
-IF EXISTS (SELECT 1 FROM pg_catalog.pg_database WHERE datname = 'DataWarehouse')
-BEGIN
-    ALTER DATABASE DataWarehouse SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-    DROP DATABASE DataWarehouse;
-END;
+DROP DATABASE IF exists "DataWarehouse";
 
 -- Create the 'DataWarehouse' database
-CREATE DATABASE DataWarehouse;
-GO
+CREATE DATABASE "DataWarehouse";
 
-USE DataWarehouse;
-GO
+-- USE DataWarehouse;
+\c "DataWarehouse";
 
 -- Create Schemas
-CREATE SCHEMA bronze;
-GO
+CREATE SCHEMA IF NOT EXISTS bronze;
 
-CREATE SCHEMA silver;
-GO
+CREATE SCHEMA IF NOT EXISTS silver;
 
-CREATE SCHEMA gold;
-GO
+CREATE SCHEMA IF NOT EXISTS gold;
