@@ -9,6 +9,8 @@ Script Purpose:
 ===============================================================================
 */
 
+-- run the scirpt by psql -U <user> -f scripts/bronze/ddl_bronze.sql
+
 -- Naming Convention: <schema>.<sourcesystem>_<entity>
 
 -- USE datawarehouse
@@ -18,7 +20,7 @@ Script Purpose:
 -- CREATE TABLE CUSTOMER INFO FOR BRONZE SCHEMA
 
 
-CREATE TABLE bronze.crm_cust_info(
+CREATE TABLE IF NOT EXISTS bronze.crm_cust_info(
     cst_id INT,
     cst_key VARCHAR(50),
     cst_firstname VARCHAR(50),
@@ -28,7 +30,7 @@ CREATE TABLE bronze.crm_cust_info(
     cst_create_data DATE
 );
 
-CREATE TABLE bronze.crm_prd_info(
+CREATE TABLE IF NOT EXISTS bronze.crm_prd_info(
     prd_id INT,
     prd_key VARCHAR(50),
     prd_nm VARCHAR(50),
@@ -38,7 +40,7 @@ CREATE TABLE bronze.crm_prd_info(
     prd_end_dt DATE
 );
 
-CREATE TABLE bronze.crm_sales_details(
+CREATE TABLE IF NOT EXISTS bronze.crm_sales_details(
     sls_ord_num VARCHAR(50),
     sls_prd_key VARCHAR(50),
     sls_cust_id INT,
@@ -50,18 +52,18 @@ CREATE TABLE bronze.crm_sales_details(
     sls_price INT
 );
 
-CREATE TABLE bronze.erp_cust_az12(
+CREATE TABLE IF NOT EXISTS bronze.erp_cust_az12(
     CID VARCHAR(50),
     BDATE DATE,
     GEN VARCHAR(50)
 );
 
-CREATE TABLE bronze.erp_loc_a101(
+CREATE TABLE IF NOT EXISTS bronze.erp_loc_a101(
     CID VARCHAR(50),
     CNTRY VARCHAR(50)
 );
 
-CREATE TABLE bronze.erp_px_cat_g1v2(
+CREATE TABLE IF NOT EXISTS bronze.erp_px_cat_g1v2(
     ID VARCHAR(50),
     CAT VARCHAR(50),
     SUBCAT VARCHAR(50),
