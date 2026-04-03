@@ -15,14 +15,14 @@ WARNING:
 
 --  You could run it by psql -U <user> -f init_database.sql
 
--- Drop and recreate the 'DataWarehouse' database PSQL
-DROP DATABASE IF exists "DataWarehouse";
+-- Drop and recreate the 'datawarehouse' database PSQL
+DROP DATABASE IF exists datawarehouse;
 
--- Create the 'DataWarehouse' database
-CREATE DATABASE "DataWarehouse";
+-- Create the 'datawarehouse' database
+CREATE DATABASE datawarehouse;
 
--- USE DataWarehouse;
-\c "DataWarehouse";
+-- USE datawarehouse;
+\c datawarehouse;
 
 -- Create Schemas
 CREATE SCHEMA IF NOT EXISTS bronze;
