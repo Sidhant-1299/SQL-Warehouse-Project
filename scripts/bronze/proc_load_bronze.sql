@@ -14,45 +14,66 @@ Parameters:
 
 Usage Example:
     psql -U <user> bronze.load_bronze;
+
+Notes:
+	Do change the directory structure according to your machine and source system
 ===============================================================================
 */
 
 
--- SET Base Directory For data source
-
-\set base_dir '/Users/sidhant/Desktop/project/sql-data-warehouse-project/datasets';
-\set crm_dir :base_dir '/source_crm/';
-\set erp_dir :base_dir '/source_erp/';
-
-
--- SET FILES CRM
-\set cust_info :crm_dir 'cust_info.csv';
-\set prd_info :crm_dir 'prd_info.csv';
-\set sales_details :crm_dir 'sales_details.csv';
-
--- SET FILES ERP
-\set cust_az12 :erp_dir 'cust_az12.csv';
-\set loc_a101 :erp_dir 'loc_a101.csv';
-\set erp_px_cat_g1v2 :erp_dir 'erp_px_cat_g1v2.csv';
-
--- USE datawarehouse Database
+-- CONNECT TO DB FIRST
 \c datawarehouse
 
--- Load in to bronze.crm_cust_info
-COPY bronze.crm_cust_info FROM :'cust_info';
+-- Load into bronze.crm_cust_info (if table exists)
+SELECT EXISTS (
+    SELECT 1 FROM information_schema.tables
+    WHERE table_schema = 'bronze' AND table_name = 'crm_cust_info'
+) AS tbl_exists \gset
+\if :tbl_exists
+    \copy bronze.crm_cust_info FROM '/Users/sidhant/Desktop/project/sql-data-warehouse-project/datasets/source_crm/cust_info.csv' WITH (FORMAT csv, HEADER true)
+\endif
 
--- Load in to bronze.crm_prd_info
-COPY bronze.crm_prd_info FROM :'prd_info';
+-- Load into bronze.crm_prd_info (if table exists)
+SELECT EXISTS (
+    SELECT 1 FROM information_schema.tables
+    WHERE table_schema = 'bronze' AND table_name = 'crm_prd_info'
+) AS tbl_exists \gset
+\if :tbl_exists
+    \copy bronze.crm_prd_info FROM '/Users/sidhant/Desktop/project/sql-data-warehouse-project/datasets/source_crm/prd_info.csv' WITH (FORMAT csv, HEADER true)
+\endif
 
--- Load in to bronze.crm_sales_details
-COPY bronze.crm_sales_details FROM :'sales_details';
+-- Load into bronze.crm_sales_details (if table exists)
+SELECT EXISTS (
+    SELECT 1 FROM information_schema.tables
+    WHERE table_schema = 'bronze' AND table_name = 'crm_sales_details'
+) AS tbl_exists \gset
+\if :tbl_exists
+    \copy bronze.crm_sales_details FROM '/Users/sidhant/Desktop/project/sql-data-warehouse-project/datasets/source_crm/sales_details.csv' WITH (FORMAT csv, HEADER true)
+\endif
 
+-- Load into bronze.erp_cust_az12 (if table exists)
+SELECT EXISTS (
+    SELECT 1 FROM information_schema.tables
+    WHERE table_schema = 'bronze' AND table_name = 'erp_cust_az12'
+) AS tbl_exists \gset
+\if :tbl_exists
+    \copy bronze.erp_cust_az12 FROM '/Users/sidhant/Desktop/project/sql-data-warehouse-project/datasets/source_erp/cust_az12.csv' WITH (FORMAT csv, HEADER true)
+\endif
 
--- Load in to bronze.erp_cust_az12 from file
-COPY bronze.erp_cust_az12 FROM :'cust_az12';
+-- Load into bronze.erp_loc_a101 (if table exists)
+SELECT EXISTS (
+    SELECT 1 FROM information_schema.tables
+    WHERE table_schema = 'bronze' AND table_name = 'erp_loc_a101'
+) AS tbl_exists \gset
+\if :tbl_exists
+    \copy bronze.erp_loc_a101 FROM '/Users/sidhant/Desktop/project/sql-data-warehouse-project/datasets/source_erp/loc_a101.csv' WITH (FORMAT csv, HEADER true)
+\endif
 
--- Load in to bronze.erp_loc_a101 from file
-COPY bronze.erp_loc_a101 FROM :'loc_a101';
-
--- Load in to bronze.erp_px_cat_g1v2 from file
-COPY bronze.erp_px_cat_g1v2 FROM :'erp_px_cat_g1v2';
+-- Load into bronze.erp_px_cat_g1v2 (if table exists)
+SELECT EXISTS (
+    SELECT 1 FROM information_schema.tables
+    WHERE table_schema = 'bronze' AND table_name = 'erp_px_cat_g1v2'
+) AS tbl_exists \gset
+\if :tbl_exists
+    \copy bronze.erp_px_cat_g1v2 FROM '/Users/sidhant/Desktop/project/sql-data-warehouse-project/datasets/source_erp/px_cat_g1v2.csv' WITH (FORMAT csv, HEADER true)
+\endif
