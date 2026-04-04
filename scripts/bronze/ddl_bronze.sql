@@ -7,9 +7,12 @@ Script Purpose:
     if they already exist.
 	  Run this script to re-define the DDL structure of 'bronze' Tables
 ===============================================================================
+
+Usage example: 
+psql -U <user> -f scripts/bronze/ddl_bronze.sql
+
 */
 
--- run the scirpt by psql -U <user> -f scripts/bronze/ddl_bronze.sql
 
 -- Naming Convention: <schema>.<sourcesystem>_<entity>
 
