@@ -35,8 +35,8 @@ Usage Example:
 \set loc_a101 :erp_dir 'loc_a101.csv';
 \set erp_px_cat_g1v2 :erp_dir 'erp_px_cat_g1v2.csv';
 
--- USE datawarehosue Database
-\c datawarehosue
+-- USE datawarehouse Database
+\c datawarehouse
 
 -- Load in to bronze.crm_cust_info
 COPY bronze.crm_cust_info FROM :'cust_info';
