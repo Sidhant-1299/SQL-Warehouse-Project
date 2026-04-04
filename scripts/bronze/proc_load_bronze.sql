@@ -35,21 +35,24 @@ Usage Example:
 \set loc_a101 :erp_dir 'loc_a101.csv';
 \set erp_px_cat_g1v2 :erp_dir 'erp_px_cat_g1v2.csv';
 
+-- USE datawarehosue Database
+\c datawarehosue
+
 -- Load in to bronze.crm_cust_info
-COPY bronze.crm_cust_info FROM :'cust_info'
+COPY bronze.crm_cust_info FROM :'cust_info';
 
 -- Load in to bronze.crm_prd_info
-COPY bronze.crm_prd_info FROM :'prd_info'
+COPY bronze.crm_prd_info FROM :'prd_info';
 
 -- Load in to bronze.crm_sales_details
-COPY bronze.crm_sales_details FROM :'sales_details'
+COPY bronze.crm_sales_details FROM :'sales_details';
 
 
 -- Load in to bronze.erp_cust_az12 from file
-COPY bronze.erp_cust_az12 FROM :'cust_az12'
+COPY bronze.erp_cust_az12 FROM :'cust_az12';
 
 -- Load in to bronze.erp_loc_a101 from file
-COPY bronze.erp_loc_a101 FROM :'loc_a101'
+COPY bronze.erp_loc_a101 FROM :'loc_a101';
 
 -- Load in to bronze.erp_px_cat_g1v2 from file
-COPY bronze.erp_px_cat_g1v2 FROM :'erp_px_cat_g1v2'
+COPY bronze.erp_px_cat_g1v2 FROM :'erp_px_cat_g1v2';
