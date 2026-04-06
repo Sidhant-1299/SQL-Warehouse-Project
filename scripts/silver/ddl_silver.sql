@@ -9,10 +9,9 @@ Script Purpose:
 ===============================================================================
 */
 
-
+/*
 Usage example: 
-psql -U <user> -f scripts/bronze/ddl_bronze.sql
-
+psql -U <user> -f scripts/bronze/ddl_silver.sql
 */
 
 
@@ -22,7 +21,7 @@ psql -U <user> -f scripts/bronze/ddl_bronze.sql
 
 \c datawarehouse
 
--- CREATE TABLE CUSTOMER INFO FOR BRONZE SCHEMA
+-- CREATE TABLE CUSTOMER INFO FOR SILVER SCHEMA
 
 
 CREATE TABLE IF NOT EXISTS silver.crm_cust_info(
@@ -36,7 +35,7 @@ CREATE TABLE IF NOT EXISTS silver.crm_cust_info(
     dwh_create_date DATETIME2 DEFAULT GETDATE()
 );
 
-CREATE TABLE IF NOT EXISTS bronze.crm_prd_info(
+CREATE TABLE IF NOT EXISTS silver.crm_prd_info(
     prd_id INT,
     prd_key VARCHAR(50),
     prd_nm VARCHAR(50),
@@ -47,7 +46,7 @@ CREATE TABLE IF NOT EXISTS bronze.crm_prd_info(
     dwh_create_date DATETIME2 DEFAULT GETDATE()
 );
 
-CREATE TABLE IF NOT EXISTS bronze.crm_sales_details(
+CREATE TABLE IF NOT EXISTS silver.crm_sales_details(
     sls_ord_num VARCHAR(50),
     sls_prd_key VARCHAR(50),
     sls_cust_id INT,
@@ -60,20 +59,20 @@ CREATE TABLE IF NOT EXISTS bronze.crm_sales_details(
     dwh_create_date DATETIME2 DEFAULT GETDATE()
 );
 
-CREATE TABLE IF NOT EXISTS bronze.erp_cust_az12(
+CREATE TABLE IF NOT EXISTS silver.erp_cust_az12(
     CID VARCHAR(50),
     BDATE DATE,
     GEN VARCHAR(50),
     dwh_create_date DATETIME2 DEFAULT GETDATE()
 );
 
-CREATE TABLE IF NOT EXISTS bronze.erp_loc_a101(
+CREATE TABLE IF NOT EXISTS silver.erp_loc_a101(
     CID VARCHAR(50),
     CNTRY VARCHAR(50),
     dwh_create_date DATETIME2 DEFAULT GETDATE()
 );
 
-CREATE TABLE IF NOT EXISTS bronze.erp_px_cat_g1v2(
+CREATE TABLE IF NOT EXISTS silver.erp_px_cat_g1v2(
     ID VARCHAR(50),
     CAT VARCHAR(50),
     SUBCAT VARCHAR(50),
