@@ -13,47 +13,75 @@ Parameters:
 	  This stored procedure does not accept any parameters or return any values.
 
 Usage Example:
-    psql -U <user> bronze.load_bronze;
+    psql -U <user> -d datawarehouse -f proc_load_bronze.sql
 
 Notes:
 	Do change the directory structure according to your machine and source system
 ===============================================================================
 */
 
-
--- CONNECT TO DB FIRST
-\c datawarehouse
-
+-- STORED PROCEDURES RUN ON THE POSTGRESQL SERVER NOT ON THE PSQL CLI
+-- THUS PSQL META COMMANDS DO NOT RUN ON IT
 
 
--- Load in to bronze.crm_cust_info
-TRUNCATE TABLE bronze.crm_cust_info;
-\copy bronze.crm_cust_info FROM '/Users/sidhant/Desktop/project/sql-data-warehouse-project/datasets/source_crm/cust_info.csv' WITH (FORMAT csv, HEADER true)
+CREATE OR REPLACE PROCEDURE bronze.load_bronze()
+LANGUAGE plpgsql
+AS $$
+DECLARE
+	start_time TIMESTAMP;
+	end_time TIMESTAMP;
+	base_path TEXT;
+	crm_path TEXT;
+	erp_path TEXT;
+BEGIN
+	start_time := NOW();
+	RAISE NOTICE 'Starting data load, %', start_time;
 
--- Load in to bronze.crm_prd_info
-TRUNCATE TABLE bronze.crm_prd_info;
-\echo 'copying crm_prd_info...'
-\copy bronze.crm_prd_info FROM '/Users/sidhant/Desktop/project/sql-data-warehouse-project/datasets/source_crm/prd_info.csv' WITH (FORMAT csv, HEADER true)
+	-- set base path and sourcesystem path
+	base_path := '/Users/sidhant/Desktop/project/sql-data-warehouse-project/datasets';
+	crm_path := base_path || '/source_crm/';
+	erp_path := base_path || '/source_erp/';
 
--- Load in to bronze.crm_sales_details
-TRUNCATE TABLE bronze.crm_sales_details;
-\echo 'copying crm_sales_details...'
-\copy bronze.crm_sales_details FROM '/Users/sidhant/Desktop/project/sql-data-warehouse-project/datasets/source_crm/sales_details.csv' WITH (FORMAT csv, HEADER true)
+	-- main block
+	RAISE NOTICE 'BASE PATH = %' , base_path;
+	RAISE NOTICE ' crm path = %'	 , crm_path;
+	RAISE NOTICE ' erp path = %' , erp_path;
 
--- Load in to bronze.erp_cust_az12 from file
-TRUNCATE TABLE bronze.erp_cust_az12;
-\echo 'copying erp_cust_az12...'
-\copy bronze.erp_cust_az12 FROM '/Users/sidhant/Desktop/project/sql-data-warehouse-project/datasets/source_erp/cust_az12.csv' WITH (FORMAT csv, HEADER true)
+	-- %L is a SQL FORMAT() to quote as a string literal
+	-- load cust_info
+	TRUNCATE bronze.crm_cust_info;
+	RAISE NOTICE 'Loading file cust_info.csv ...';
+	EXECUTE format('COPY bronze.crm_cust_info FROM %L WITH (FORMAT csv, HEADER true)',crm_path || 'cust_info.csv');
+	-- load prd_info
+	TRUNCATE bronze.crm_prd_info;
+	RAISE NOTICE 'Loading file prd_info.csv ...';
+	EXECUTE format('COPY bronze.crm_prd_info FROM %L WITH (FORMAT csv, HEADER true)',crm_path || 'prd_info.csv');
+	-- load sales_details
+	TRUNCATE bronze.crm_sales_details;
+	RAISE NOTICE 'Loading file sales_details.csv ...';
+	EXECUTE format('COPY bronze.crm_sales_details FROM %L WITH (FORMAT csv, HEADER true)',crm_path || 'sales_details.csv');
+	-- load cust_az12
+	TRUNCATE bronze.erp_cust_az12;
+	RAISE NOTICE 'Loading file cust_az12.csv ...';
+	EXECUTE format('COPY bronze.erp_cust_az12 FROM %L WITH (FORMAT csv, HEADER true)',erp_path || 'cust_az12.csv');
+	-- load loc_a101
+	TRUNCATE bronze.erp_loc_a101;
+	RAISE NOTICE 'Loading file loc_a101.csv ...';
+	EXECUTE format('COPY bronze.erp_loc_a101 FROM %L WITH (FORMAT csv, HEADER true)',erp_path || 'loc_a101.csv');
+	-- load px_cat_g1v2
+	TRUNCATE bronze.erp_px_cat_g1v2;
+	RAISE NOTICE 'Loading file px_cat_g1v2.csv ...';
+	EXECUTE format('COPY bronze.erp_px_cat_g1v2 FROM %L WITH (FORMAT csv, HEADER true)',erp_path || 'px_cat_g1v2.csv');
 
--- Load in to bronze.erp_loc_a101 from file
-TRUNCATE TABLE bronze.erp_loc_a101;
-\echo 'copying erp_loc_a101...'
-\copy bronze.erp_loc_a101 FROM '/Users/sidhant/Desktop/project/sql-data-warehouse-project/datasets/source_erp/loc_a101.csv' WITH (FORMAT csv, HEADER true)
 
+	end_time := NOW();
+	RAISE NOTICE 'Data load completed, %', end_time;
 
--- Load in to bronze.erp_px_cat_g1v2 from file
-TRUNCATE TABLE bronze.erp_px_cat_g1v2;
-\echo 'copying erp_px_cat_g1v2...'
-\copy bronze.erp_px_cat_g1v2 FROM '/Users/sidhant/Desktop/project/sql-data-warehouse-project/datasets/source_erp/px_cat_g1v2.csv' WITH (FORMAT csv, HEADER true)
+	EXCEPTION
+		WHEN OTHERS THEN
+			RAISE NOTICE 'ERROR : %', SQLERRM;
 
-\echo "Copy completed!"
+END;
+$$;
+
+CALL bronze.load_bronze();
