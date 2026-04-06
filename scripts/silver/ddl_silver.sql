@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS silver.crm_cust_info(
     cst_marital_status VARCHAR(50),
     cst_gndr VARCHAR(50),
     cst_create_data DATE,
-    dwh_create_date DATETIME2 DEFAULT GETDATE()
+    dwh_create_date TIMESTAMP DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS silver.crm_prd_info(
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS silver.crm_prd_info(
     prd_line VARCHAR(50),
     prd_start_dt DATE,
     prd_end_dt DATE,
-    dwh_create_date DATETIME2 DEFAULT GETDATE()
+    dwh_create_date TIMESTAMP DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS silver.crm_sales_details(
@@ -56,20 +56,20 @@ CREATE TABLE IF NOT EXISTS silver.crm_sales_details(
     sls_sales INT,
     sls_quantity INT,
     sls_price INT,
-    dwh_create_date DATETIME2 DEFAULT GETDATE()
+    dwh_create_date TIMESTAMP DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS silver.erp_cust_az12(
     CID VARCHAR(50),
     BDATE DATE,
     GEN VARCHAR(50),
-    dwh_create_date DATETIME2 DEFAULT GETDATE()
+    dwh_create_date TIMESTAMP DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS silver.erp_loc_a101(
     CID VARCHAR(50),
     CNTRY VARCHAR(50),
-    dwh_create_date DATETIME2 DEFAULT GETDATE()
+    dwh_create_date TIMESTAMP DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS silver.erp_px_cat_g1v2(
@@ -77,5 +77,5 @@ CREATE TABLE IF NOT EXISTS silver.erp_px_cat_g1v2(
     CAT VARCHAR(50),
     SUBCAT VARCHAR(50),
     MAINTENANCE VARCHAR(50),
-    dwh_create_date DATETIME2 DEFAULT GETDATE()
+    dwh_create_date TIMESTAMP DEFAULT NOW()
 );
