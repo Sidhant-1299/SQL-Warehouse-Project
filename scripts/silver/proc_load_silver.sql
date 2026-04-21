@@ -14,7 +14,7 @@ Parameters:
 	  This stored procedure does not accept any parameters or return any values.
 
 Usage Example:
-    CALL silver.load_silver();
+    CALL silver.load_silver(f);
 ===============================================================================
 */
 
@@ -102,7 +102,7 @@ BEGIN
 		REPLACE(SUBSTRING(prd_key, 1, 5), '-', '_') AS cat_id, -- Extract category ID
 		SUBSTRING(prd_key, 7, LENGTH(prd_key)) AS prd_key,     -- Extract product key
 		prd_nm,
-		COALESCE(prd_cost, 0) AS prd_cost,
+		COALESCE(prd_cost, 0) AS prd_cost, -- returns 0 if prd_cost is NULL
 		CASE
 			WHEN UPPER(TRIM(prd_line)) = 'M' THEN 'Mountain'
 			WHEN UPPER(TRIM(prd_line)) = 'R' THEN 'Road'
