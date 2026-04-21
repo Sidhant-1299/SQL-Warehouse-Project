@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS bronze.crm_cust_info(
     cst_lastname VARCHAR(50),
     cst_marital_status VARCHAR(50),
     cst_gndr VARCHAR(50),
-    cst_create_data DATE
+    cst_create_date DATE
 );
 
 CREATE TABLE IF NOT EXISTS bronze.crm_prd_info(
